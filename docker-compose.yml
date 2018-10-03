@@ -1,0 +1,70 @@
+version: "3.7"
+services:
+
+# GLPI
+  glpi-apache:
+    image: leandromoreirajfa/glpi-apache:1.0
+    command: setup.sh
+    env_file:
+      - glpi.config
+    hostname: glpi-apache
+    volumes:
+      - www:/srv/www/html/public_html/glpi
+    ports:
+      - "80:80"
+      - "443:443"
+    privileged: true
+    stdin_open: true
+    ulimits:
+     nproc: 65535
+     nofile:
+      soft: 20000
+      hard: 40000
+    deploy:
+      #placement:
+       # constraints: [node.role == manager]
+      resources:
+        limits:
+          memory: 2048M
+          cpus: '0.1'
+        reservations:
+          cpus: '0.5'
+          memory: 1024M  
+      restart_policy:
+        condition: on-failure   
+      #replicas: 3
+    sysctls:
+      - net.ipv4.ip_local_port_range=1024 65000
+      - net.ipv4.conf.all.accept_redirects=0
+      - net.ipv4.conf.all.secure_redirects=0
+      - net.ipv4.conf.all.send_redirects=0
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv6.conf.default.disable_ipv6=1
+      - net.ipv6.conf.lo.disable_ipv6=1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "250m"
+        max-file: "3"
+    networks:
+      - backend
+
+# VOLUMES
+volumes:
+  www:
+ 
+# REDE
+networks:
+  backend:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.30.0.0/24
+
+  frontend:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.31.0.0/24 

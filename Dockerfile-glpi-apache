@@ -1,0 +1,44 @@
+FROM debian:latest
+LABEL maintainer Leandro Moreira <leandro@leandromoreirati.com.br>
+
+ARG  DEBIAN_VERSION=stretch
+ARG  KEY=ABF5BD827BD9BF62
+
+COPY configs/   /tmp/configs/
+
+WORKDIR /srv/www/html/public_html
+
+RUN dpkg -i /tmp/configs/zabbix-release_3.4-1+stretch_all.deb && \
+    cat /usr/share/doc/apt/examples/sources.list > /etc/apt/sources.list && \
+    apt-get update -y && \
+    apt-get dist-upgrade -y && \
+    apt-get install --no-install-recommends ca-certificates apache2 libapache2-mod-php7.0 php7.0-cli php7.0 php7.0-gd php7.0-imap php7.0-ldap php7.0-mysql php7.0-soap php7.0-xmlrpc zip unzip bzip2 unrar-free php7.0-snmp php7.0-curl php7.0-json php-memcached php7.0-dev php7.0-mbstring php-apcu-bc php-cas php7.0-xml curl wget cron -y && \
+    a2enmod xml2enc && \
+    mv -v /tmp/configs/setup.sh /usr/bin/ && \
+    mv -v /tmp/configs/site.conf /etc/apache2/sites-available/ && \
+    mv -v /tmp/configs/php.ini /etc/php/7.0/apache2/ && \
+    mv -v /tmp/configs/ports.conf /etc/apache2/ && \
+    mv -v /tmp/configs/apache2.conf /etc/apache2/ && \
+    mkdir -p /run/php && \
+    tar xvf /tmp/configs/glpi-9.3.1.tgz -C /srv/www/html/public_html && \
+    tar xvf /tmp/configs/fusioninventory-9.3.1.1.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
+    chown -R www-data:www-data /srv/www/html/public_html/glpi/ && \
+    chmod -R 755 /srv/www/html/public_html/glpi && \
+    chmod -R 777 /srv/www/html/public_html/glpi/plugins && \
+    mkdir /etc/apache2/ssl/ && \
+    mv -v /tmp/configs/ssl/caeddigital.net.concat.crt /etc/apache2/ssl/ && \
+    mv -v /tmp/configs/ssl/caeddigital.net.key /etc/apache2/ssl/ && \
+    rm /etc/localtime && \
+    ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /etc/apache2/sites-enabled/* && \
+    rm -rf /tmp/* 
+ 
+EXPOSE 80 443
+
+#USER www-data
+
+#ENTRYPOINT ["/usr/sbin/nginx"]
+
+#CMD ["-g","daemon off;"]
