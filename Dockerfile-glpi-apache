@@ -33,6 +33,8 @@ RUN dpkg -i /tmp/configs/zabbix-release_3.4-1+stretch_all.deb && \
     chmod -R 777 /srv/www/html/public_html/glpi/plugins && \
     mv -v /tmp/configs/config_db.php /srv/www/html/public_html/glpi/config/config_db.php && \
     rm /etc/localtime && \
+    mkdir /etc/apache2/ssl && \
+    mv -v /tmp/configs/ssl/* /etc/apache2/ssl && \
     ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     apt-get clean && \ 
     sed -i -e 's/# pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/' /etc/locale.gen && \
