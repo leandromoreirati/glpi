@@ -22,13 +22,12 @@ RUN dpkg -i /tmp/configs/zabbix-release_3.4-1+stretch_all.deb && \
     mv -v /tmp/configs/apache2.conf /etc/apache2/ && \
     echo "#CRON GLPI" >> /var/spool/cron/crontabs/root && \
     echo "*/1 * * * * /usr/bin/php /srv/www/html/public_html/glpi/front/cron.php > /var/log/glpi.log 2>&1" >> /var/spool/cron/crontabs/root && \
-    mkdir -p /run/php && \
     tar xvf /tmp/configs/glpi-9.3.1.tgz -C /srv/www/html/public_html && \
     tar xvf /tmp/configs/fusioninventory-9.3.1.1.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
-    tar xvf /tmp/configs/GLPI-dashboard_plugin-0.9.3.tar.gz /srv/www/html/public_html/glpi/plugins && \
-    tar xvf /tmp/configs/glpi-datainjection-2.6.3.tar.bz2 /srv/www/html/public_html/glpi/plugins && \
-    tar xvf /tmp/configs/glpi-escalade-2.3.2.tar.bz2 /srv/www/html/public_html/glpi/plugins && \
-    tar xvf /tmp/configs/glpi-formcreator-2.6.4.tar /srv/www/html/public_html/glpi/plugins && \  
+    tar xvf /tmp/configs/GLPI-dashboard_plugin-0.9.3.tar.gz -C /srv/www/html/public_html/glpi/plugins && \
+    tar xvf /tmp/configs/glpi-datainjection-2.6.3.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
+    tar xvf /tmp/configs/glpi-escalade-2.3.2.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
+    tar xvf /tmp/configs/glpi-formcreator-2.6.4.tar -C /srv/www/html/public_html/glpi/plugins && \  
     chown -R www-data:www-data /srv/www/html/public_html/glpi/ && \
     chmod -R 755 /srv/www/html/public_html/glpi && \
     chmod -R 777 /srv/www/html/public_html/glpi/plugins && \
