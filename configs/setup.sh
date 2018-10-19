@@ -42,6 +42,9 @@ $(which a2enmod) ssl
 # CONFIGURANDO VIRTUAL HOSTS
 $(which a2ensite) $APACHE_VHOST.conf
 
+# INICIANDO A CRON
+$(which service) cron start
+
 # INICIANDO O APACHE
 $(which service) apache2 start && bash
 
