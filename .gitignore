@@ -1,3 +1,5 @@
+fullchain1.pem
+privkey1.pem
 Dockerfile-glpi-nginx
 nginx.conf
 www.conf
