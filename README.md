@@ -10,7 +10,7 @@ Para o funcionamento do serviço e necessário  uma maquina virtual com o Mysql 
  °  Versão 1.2 - 05/10/2018 ==> Configuração do Timezone America/Sao_Paulo.\
  °  Versão 1.3 - 29/10/2018 ==> Configuracao da locales pt-BR.
 
- Versão do Zabbix: 9.3.0
+ Versão do GLPI: 9.3.1
 
 # PRÉ-REQUISITO
 Os pre-requisitos necessários para execução da stack de serviço:
