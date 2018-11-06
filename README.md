@@ -7,7 +7,8 @@ Para o funcionamento do serviço e necessário  uma maquina virtual com o Mysql 
 # NOTAS DE VERSÃO
  °  Versão 1.0 - 15/07/2018 ==> Criação do Dockerfile e do Docker composse.\
  °  Versão 1.1 - 30/08/2018 ==> Atualizacao da versão do Zabbix Server.\
- °  Versão 1.2 - 05/10/2018 ==> Configuração do Timezone America/Sao_Paulo.
+ °  Versão 1.2 - 05/10/2018 ==> Configuração do Timezone America/Sao_Paulo.\
+ °  Versão 1.3 - 29/10/2018 ==> Configuracao da locales pt-BR.
 
  Versão do Zabbix: 9.3.0
 
@@ -38,16 +39,22 @@ https://plugins.glpi-project.org/
  Onde:\
  <IP_DO_SERVIDOR> deve ser substituído pelo ip do seu servidor.
 
-# BAIXANDO AS IMAGENS
- docker pull leandromoreirajfa/zabbix-server:1.2
+# BAIXANDO A IMAGEM
+ docker pull leandromoreirajfa/glpi-apache:1.3
                                                  
-# SERVIÇO ZABBIX SERVER
-Para configurar o serviço do Zabbix Server, editar o arquivo server.config que localiza-se no diretório configs, alterando as variáveis:
+# SERVIÇO GLPI SERVER
+Para configurar o serviço do GLPI, editar o arquivo glpi.config alterando as variáveis:
 
-PGSQL_HOST=<IP_DO_SERVIDOR>\
-PGSQL_ZABBIX_USER=<USUARIO_ZABBIX>\
-PGSQL_ZABBIX_BD=<ZABBIX_DATABASE>\
-PGSQL_ZABBIX_PASS=<SENHA_ZABBIX_USER>
+MYSQL_HOST=<IP_SERVIDDOR_MYSQL>\
+GLPI_USER=<USUARIO_DATABASE_GLPI>\
+GLPI_PASS=<USUARIO_DATABASE_GLPI_PASSWORD>\
+GLPI_DB=<GLPI_DATABASE>/
+APACHE_VHOST=<APACHE_VIRTUAL_HOST>\
+HTTP_PORT=80
+HTTPS_PORT=443
+APACHE_SRV_ADMIN=<APACHE_SRV_ADMIN_EMAIL>\
+CERT_FILE=<NOME_ARQUIVO_CERTIFICADO>\
+CERT_KEY=<NOME_ARQUIVO_KEY>\
 
 # INICIANDO O SERVICO
- docker stack deploy -c docker-compose.yml zabbix-server
+ docker stack deploy -c docker-compose.yml glpi 
