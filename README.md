@@ -62,10 +62,10 @@ Os pre-requisitos necessários para execução da stack de serviço:
 # CONFIGURANDO SERVIÇO GLPI
 Para configurar o serviço do Zabbix Server, editar o arquivo server.config que localiza-se no diretório configs, alterando as variáveis:
 
-MYSQL_HOST=<IP_DATABASE_GLPI>
-GLPI_USER=<USUARIO_DATABASE_GLPI>
-GLPI_PASS=<PASSWORD_USUARIO_GLPI>
-GLPI_DB=<DATABASE_GLPI>
+MYSQL_HOST=<IP_DATABASE_GLPI>\
+GLPI_USER=<USUARIO_DATABASE_GLPI>\
+GLPI_PASS=<PASSWORD_USUARIO_GLPI>\
+GLPI_DB=<DATABASE_GLPI>\
 APACHE_VHOST=<FDQN_VIRTUAL_HOST_APACHE>\
 APACHE_SRV_ADMIN=<EMAIIL_SERVER_ADMIN>\
 TZ=America/Sao_Paulo\
