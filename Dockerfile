@@ -1,9 +1,6 @@
 FROM debian:latest
 LABEL maintainer Leandro Moreira <leandro@leandromoreirati.com.br>
 
-ARG  DEBIAN_VERSION=stretch
-ARG  KEY=ABF5BD827BD9BF62
-
 COPY configs/   /tmp/configs/
 
 WORKDIR /srv/www/html/public_html
