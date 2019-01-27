@@ -12,7 +12,7 @@ Nesse repostorio disponibilizo a instalação do GLPI em um container docker, as
  ° Escalade\
  ° Form Creator\
  ° Tag\
- ° Modifications.
+ ° Modifications\
  ° Task List.
 
 Todos os plugins presentes foram desenvolvidos pela comunidade do GLPI e podem ser baixados no link abaixo:
