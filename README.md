@@ -88,4 +88,4 @@ Adminsitracao >> Perfis
 
 Selecionar o perfil desejado e clicar em "Task list" em seguida delegar as permissões desejadas ao grupo, para acesso ao Kanban.  
 
-![Plugin tasklists](https://raw.githubusercontent.com/InfotelGLPI/tasklists/master/screenshots/kanban.png "Plugin tasklists")
+![Plugin tasklists](https://github.com/leandromoreirati/glpi/blob/master/image/tasklist.png "Permissão Task List")
