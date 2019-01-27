@@ -3,7 +3,7 @@ services:
 
 # GLPI
   glpi-apache:
-    image: leandromoreirajfa/glpi-apache:1.4
+    image: leandromoreirajfa/glpi-apache:1.5
     command: setup.sh
     env_file:
       - glpi.config
@@ -45,14 +45,6 @@ volumes:
 networks:
   backend:
     driver: overlay
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.30.0.0/24
 
   frontend:
     driver: overlay
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.31.0.0/24 

@@ -13,6 +13,7 @@ Nesse repostorio disponibilizo a instalação do GLPI em um container docker, as
  ° Form Creator\
  ° Tag\
  ° Modifications.
+ ° Task List.
 
 Todos os plugins presentes foram desenvolvidos pela comunidade do GLPI e podem ser baixados no link abaixo:
   https://plugins.glpi-project.org/#/ 
@@ -22,13 +23,14 @@ Todos os plugins presentes foram desenvolvidos pela comunidade do GLPI e podem s
  ° Versão 1.1 - 30/08/2018 ==> Atualizacao da versão do Zabbix Server.\
  ° Versão 1.2 - 05/10/2018 ==> Configuração da idioma Portugues.\
  ° Versão 1.3 - 21/10/2018 ==> Adição plugin behaviors.\
- ° Versão 1.4 - 16/11/2018 ==> Criação do aquivo README.md e adição dos plugins TAG e Modifications.
+ ° Versão 1.4 - 16/11/2018 ==> Criação do aquivo README.md e adição dos plugins TAG e Modifications.\
+ ° Versão 1.5 - 27/01/2019 ==> Adição do plugin Task List(KANBAN) e upgrade para a versao 9.3.3.
 
 # PRÉ-REQUISITO
 Os pre-requisitos necessários para execução da stack de serviço:
  1) Docker Instalado e configurado.
  2) Docker Swarm configurado.
- 3) Mysql instalado e configurado.
+ 3) Mysql instalado e confiurado.
 
 # INSTALANDO E CONFIGURANDO DOCKER
  curl -fsSL https://get.docker.com | bash
@@ -62,10 +64,10 @@ Os pre-requisitos necessários para execução da stack de serviço:
 # CONFIGURANDO SERVIÇO GLPI
 Para configurar o serviço do Zabbix Server, editar o arquivo server.config que localiza-se no diretório configs, alterando as variáveis:
 
-MYSQL_HOST=<IP_DATABASE_GLPI>\
-GLPI_USER=<USUARIO_DATABASE_GLPI>\
-GLPI_PASS=<PASSWORD_USUARIO_GLPI>\
-GLPI_DB=<DATABASE_GLPI>\
+MYSQL_HOST=<IP_DATABASE_GLPI>
+GLPI_USER=<USUARIO_DATABASE_GLPI>
+GLPI_PASS=<PASSWORD_USUARIO_GLPI>
+GLPI_DB=<DATABASE_GLPI>
 APACHE_VHOST=<FDQN_VIRTUAL_HOST_APACHE>\
 APACHE_SRV_ADMIN=<EMAIIL_SERVER_ADMIN>\
 TZ=America/Sao_Paulo\
@@ -74,3 +76,16 @@ CERT_KEY=<NOME_ARQUIVO_KEY>
 
 # INICIANDO O SERVICO
  docker stack deploy -c docker-compose.yml glpi
+
+# CONFIGRANDO O PLUGIN TASK LIST
+Para criar os constextos, clicar no link:
+
+https://github.com/InfotelGLPI/tasklists.git
+
+Criados os contexos, temos de dar permissão para os usuarios.
+
+Adminsitracao >> Perfis
+
+Selecionar o perfil desejado e clicar em "Task list" em seguida delegar as permissões desejadas ao grupo, para acesso ao Kanban.  
+
+![Plugin tasklists](https://raw.githubusercontent.com/InfotelGLPI/tasklists/master/screenshots/kanban.png "Plugin tasklists")

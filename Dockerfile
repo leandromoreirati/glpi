@@ -1,6 +1,9 @@
 FROM debian:latest
 LABEL maintainer Leandro Moreira <leandro@leandromoreirati.com.br>
 
+ARG  DEBIAN_VERSION=stretch
+ARG  KEY=ABF5BD827BD9BF62
+
 COPY configs/   /tmp/configs/
 
 WORKDIR /srv/www/html/public_html
@@ -21,7 +24,7 @@ RUN echo "deb http://ftp.de.debian.org/debian stretch main non-free" >> /etc/apt
     echo "*/1 * * * * /usr/bin/php7.0 /srv/www/html/public_html/glpi/front/cron.php > /var/log/glpi.log 2>&1" >> /var/spool/cron/crontabs/root && \
     chown root.crontab /var/spool/cron/crontabs/root && \
     chmod 600 /var/spool/cron/crontabs/root && \
-    tar xvf /tmp/configs/glpi-9.3.1.tgz -C /srv/www/html/public_html && \
+    tar xvf /tmp/configs/glpi-9.3.3.tgz -C /srv/www/html/public_html && \
     tar xvf /tmp/configs/fusioninventory-9.3.1.1.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
     tar xvf /tmp/configs/GLPI-dashboard_plugin-0.9.3.tar.gz -C /srv/www/html/public_html/glpi/plugins && \
     tar xvf /tmp/configs/glpi-datainjection-2.6.3.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
@@ -29,10 +32,12 @@ RUN echo "deb http://ftp.de.debian.org/debian stretch main non-free" >> /etc/apt
     tar xvf /tmp/configs/glpi-tag-2.2.2.tar.bz2 -C /srv/www/html/public_html/glpi/plugins && \
     tar xvf /tmp/configs/glpi-formcreator-2.6.4.tar -C /srv/www/html/public_html/glpi/plugins && \  
     tar xvf /tmp/configs/glpi-behaviors-2.1.1.tar.gz -C /srv/www/html/public_html/glpi/plugins && \  
+    tar xvf /tmp/configs/glpi-tasklists-1.4.1.tar.gz -C /srv/www/html/public_html/glpi/plugins && \
     unzip /tmp/configs/Plugin_Modifications_1.2.4_GLPI_9.3.2.zip -d /srv/www/html/public_html/glpi/plugins && \  
     chown -R www-data:www-data /srv/www/html/public_html/glpi/ && \
     chmod -R 755 /srv/www/html/public_html/glpi && \
     chmod -R 777 /srv/www/html/public_html/glpi/plugins && \
+    chmod -R 777 /srv/www/html/public_html/glpi/files/ && \
     mv -v /tmp/configs/config_db.php /srv/www/html/public_html/glpi/config/config_db.php && \
     rm /etc/localtime && \
     ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
@@ -47,7 +52,3 @@ RUN echo "deb http://ftp.de.debian.org/debian stretch main non-free" >> /etc/apt
 ENV LANG='pt_BR.UTF-8'
 
 EXPOSE 80 443
-
-#ENTRYPOINT [ "/etc/init.d/cron" ]
-
-#CMD [ "start" ]
