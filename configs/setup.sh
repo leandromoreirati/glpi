@@ -26,6 +26,13 @@ sed -i 's/$GLPI_DB/'$GLPI_DB'/g'                                /srv/www/html/pu
 sed -i 's/$HTTP_PORT/'$HTTP_PORT'/g'                            /etc/apache2/ports.conf
 sed -i 's/$HTTPS_PORT/'$HTTPS_PORT'/g'                          /etc/apache2/ports.conf
 
+sed -i 's|$MAIL_SMTP|'$MAIL_SMTP'|g'                            /etc/exim/update-exim4.conf.conf
+sed -i 's|$MAIL_PORT|'$MAIL_PORT'|g'                            /etc/exim/update-exim4.conf.conf
+
+sed -i 's/$MAIL_SERVER/'/$MAIL_SERVER'/g'                       /etc/exim/passwd.client
+sed -i 's/$MAIL/'$MAIL'/g'                                      /etc/exim/passwd.client
+sed -i 's/$MAIL_PASSWORD/'$MAIL_PASSWORD'/g'                    /etc/exim/passwd.client
+
 # CONFIGURANDO HOSTS
 IP=`cat /etc/hosts| grep 172 | awk '{print$1}'`
 echo "$IP       $APACHE_VHOST" >> /etc/hosts
@@ -42,10 +49,10 @@ $(which a2enmod) ssl
 # CONFIGURANDO VIRTUAL HOSTS
 $(which a2ensite) $APACHE_VHOST.conf
 
-# INICIANDO A POSTFIX
-$(which service) postfix start
+# INICIANDO EXIM
+$(which service) exim start
 
-# INICIANDO A CRON
+# INICIANDO CRON
 $(which service) cron start
 
 # INICIANDO O APACHE

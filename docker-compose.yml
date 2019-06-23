@@ -2,11 +2,11 @@ version: "3.7"
 services:
 
 # GLPI
-  glpi-apache:
-    image: leandromoreirajfa/glpi-apache:1.5
+  glpi:
+    image: leandromoreirajfa/glpi-apache:1.6
     command: setup.sh
     env_file:
-      - glpi.config
+      - $PWD/configs/glpi.config
     hostname: glpi-apache
     volumes:
       - www:/srv/www/html/public_html/glpi
@@ -17,8 +17,8 @@ services:
       - "443:443"
     stdin_open: true
     deploy:
-      #placement:
-       # constraints: [node.role == manager]
+      placement:
+        constraints: [ node.labels.env == teste ]
       resources:
         limits:
           memory: 2048M

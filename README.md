@@ -24,7 +24,8 @@ Todos os plugins presentes foram desenvolvidos pela comunidade do GLPI e podem s
  ° Versão 1.2 - 05/10/2018 ==> Configuração da idioma Portugues.\
  ° Versão 1.3 - 21/10/2018 ==> Adição plugin behaviors.\
  ° Versão 1.4 - 16/11/2018 ==> Criação do aquivo README.md e adição dos plugins TAG e Modifications.\
- ° Versão 1.5 - 27/01/2019 ==> Adição do plugin Task List(KANBAN) e upgrade para a versao 9.3.3.
+ ° Versão 1.5 - 27/01/2019 ==> Adição do plugin Task List(KANBAN) e upgrade para a versao 9.3.3.\
+ ° Versão 1.6 - 23/06/2019 ==> Adição do suporte a envio de emails e atualizacao do GLPI para a versao 9.4.2.
 
 # PRÉ-REQUISITO
 Os pre-requisitos necessários para execução da stack de serviço:
@@ -42,7 +43,7 @@ Os pre-requisitos necessários para execução da stack de serviço:
  <IP_DO_SERVIDOR> deve ser substituído pelo ip do seu servidor.
 
 # BAIXANDO AS IMAGENS
- docker pull leandromoreirajfa/zabbix-web:1.2
+ docker pull leandromoreirajfa/glpi-apache:1.6
                                                  
 # INSTACAO DO MYSQL
   A instalacao do Mysql pode sem encontrada no link abaixo:
@@ -62,17 +63,21 @@ Os pre-requisitos necessários para execução da stack de serviço:
      Flush privileges;
 
 # CONFIGURANDO SERVIÇO GLPI
-Para configurar o serviço do Zabbix Server, editar o arquivo server.config que localiza-se no diretório configs, alterando as variáveis:
+Para configurar o serviço do GLPI, editar o arquivo glpi.config que localiza-se no diretório configs, alterando as variáveis:
 
-MYSQL_HOST=<IP_DATABASE_GLPI>
-GLPI_USER=<USUARIO_DATABASE_GLPI>
-GLPI_PASS=<PASSWORD_USUARIO_GLPI>
-GLPI_DB=<DATABASE_GLPI>
+MYSQL_HOST=<IP_DATABASE_GLPI>\
+GLPI_USER=<USUARIO_DATABASE_GLPI>\
+GLPI_PASS=<PASSWORD_USUARIO_GLPI>\
+GLPI_DB=<DATABASE_GLPI>\
 APACHE_VHOST=<FDQN_VIRTUAL_HOST_APACHE>\
 APACHE_SRV_ADMIN=<EMAIIL_SERVER_ADMIN>\
-TZ=America/Sao_Paulo\
 CERT_FILE=<NOME_ARQUIVO_CERTIFICADO>\
-CERT_KEY=<NOME_ARQUIVO_KEY>
+CERT_KEY=<NOME_ARQUIVO_KEY>\
+MAIL_SERVER=<MAIL_SERVER>\
+MAIL=<EMAIL_ACCOUNT>\
+MAIL_PASSWORD=<EMAIL_PASSWORD>\
+MAIL_SMTP=<SMTP_MAIL_SERVER>\
+MAIL_PORT=<SMTP_PORT>
 
 # INICIANDO O SERVICO
  docker stack deploy -c docker-compose.yml glpi
@@ -88,4 +93,4 @@ Adminsitracao >> Perfis
 
 Selecionar o perfil desejado e clicar em "Task list" em seguida delegar as permissões desejadas ao grupo, para acesso ao Kanban.  
 
-![Plugin tasklists](https://github.com/leandromoreirati/glpi/blob/master/image/tasklist.png "Permissão Task List")
+![Plugin tasklists](https://raw.githubusercontent.com/InfotelGLPI/tasklists/master/screenshots/kanban.png "Plugin tasklists")
